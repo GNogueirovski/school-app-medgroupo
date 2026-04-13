@@ -1,106 +1,134 @@
-# School Manager
+# School Manager — Desafio Técnico React Native
 
-> Mobile app for managing public schools and their classes — built as a technical challenge with React Native + Expo.
-
-![Expo](https://img.shields.io/badge/Expo-54-000020?logo=expo&logoColor=white)
-![React Native](https://img.shields.io/badge/React%20Native-0.81-61DAFB?logo=react&logoColor=white)
-![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white)
-![Jest](https://img.shields.io/badge/Tests-Jest%20%2B%20RNTL-C21325?logo=jest&logoColor=white)
-
----
-
-## Overview
-
-School Manager centralizes school and class registration, replacing manual spreadsheet control. Users can create, edit, and delete schools and their associated classes, with instant feedback and offline-ready mock data via MirageJS.
+Aplicativo móvel multiplataforma (Android/iOS) para centralizar o cadastro de escolas públicas e suas turmas, substituindo o controle manual em planilhas.
 
 ---
 
 ## Screenshots
 
-| Schools List | School Form | Class Form | Empty State | Delete Confirmation |
+| Lista de Escolas | Formulário de Escola | Formulário de Turma | Estado Vazio | Confirmação de Exclusão |
 |:---:|:---:|:---:|:---:|:---:|
-| ![Schools List](assets/screenshots/schools-list.png) | ![School Form](assets/screenshots/school-form.png) | ![Class Form](assets/screenshots/class-form.png) | ![Empty State](assets/screenshots/empty-state-classes.png) | ![Delete](assets/screenshots/delete-school.png) |
+| ![Lista de Escolas](assets/screenshots/schools-list.png) | ![Formulário de Escola](assets/screenshots/school-form.png) | ![Formulário de Turma](assets/screenshots/class-form.png) | ![Estado Vazio](assets/screenshots/empty-state-classes.png) | ![Exclusão](assets/screenshots/delete-school.png) |
 
 ---
 
-## Stack
+## Funcionalidades
 
-| Technology | Version | Role |
+### Módulo de Escolas
+- Listar escolas com nome, endereço, número de turmas e turnos
+- Adicionar nova escola (nome e endereço obrigatórios)
+- Editar e excluir escola com confirmação de deleção
+
+### Módulo de Turmas
+- Listar turmas vinculadas à escola selecionada
+- Cadastrar nova turma (nome, turno e ano letivo obrigatórios)
+- Editar e excluir turma com confirmação de deleção
+
+### Estados de interface
+- **Loading** — indicador de carregamento em todas as telas
+- **Erro** — mensagem de erro com botão de nova tentativa
+- **Vazio** — estado amigável com call-to-action quando não há dados
+- **Feedback** — toast após cada mutação (criar, editar, excluir)
+
+---
+
+## Stack e Versões
+
+| Tecnologia | Versão | Papel |
 |---|---|---|
-| Expo | ~54.0 | Build toolchain and SDK |
-| React Native | 0.81 | Mobile framework |
-| React | 19 | UI runtime |
-| TypeScript | ~5.9 | Strict typing |
-| Expo Router | ~6.0 | File-based navigation |
-| Gluestack UI | ^1.1.73 | Component library |
-| MirageJS | ^0.1.48 | In-memory mock API |
-| Jest + RNTL | 29 + 13 | Testing |
-| Context API | — | Global state management |
+| Node.js | 18+ | Runtime |
+| Expo | ~54.0 | SDK e toolchain |
+| React Native | 0.81.5 | Framework mobile |
+| React | 19.1.0 | Runtime de UI |
+| TypeScript | ~5.9 | Tipagem estrita |
+| Expo Router | ~6.0 | Navegação file-based |
+| Gluestack UI | ^1.1.73 | Biblioteca de componentes |
+| MirageJS | ^0.1.48 | Mock de back-end em memória |
+| Context API | — | Gerenciamento de estado global |
+| Jest | ^29.7 | Testes unitários |
+| Testing Library RN | ^13.3 | Testes de componentes |
 
 ---
 
-## Features
+## Instalação e Execução
 
-- **Schools** — list, create, edit, and delete schools
-- **Classes** — list, create, edit, and delete classes per school
-- **Shift badges** — visual indicator for morning / afternoon / evening
-- **Bottom Sheet forms** — create and edit without leaving the current screen
-- **Delete confirmation** — ConfirmDialog before any destructive action
-- **Loading & error states** — spinner, error message with retry on every screen
-- **Empty state** — friendly call-to-action when no data exists
-- **Toast feedback** — action result notification after every mutation
-- **Mock API** — MirageJS intercepts all fetch calls in `__DEV__` mode with seeded data
+### Pré-requisitos
 
----
+- Node.js 18 ou superior
+- npm 9 ou superior
+- App **Expo Go** no celular, ou simulador Android/iOS configurado
 
-## Getting Started
-
-### Prerequisites
-
-- Node.js 18+
-- npm 9+
-- Expo Go app on your device (or Android/iOS simulator)
-
-### Install
+### Instalar dependências
 
 ```bash
 npm install
 ```
 
-### Run
+### Rodar o projeto
 
 ```bash
 npx expo start
 ```
 
-Scan the QR code with Expo Go, or press `a` for Android / `i` for iOS simulator.
+Escaneie o QR Code com o Expo Go, ou pressione:
+- `a` → emulador Android
+- `i` → simulador iOS
 
-### Test
+---
+
+## Mock de Back-end (MirageJS)
+
+O mock é inicializado **automaticamente** em modo de desenvolvimento (`__DEV__ === true`). Nenhuma configuração adicional é necessária — o MirageJS intercepta todas as chamadas `fetch` e responde com dados em memória.
+
+### Endpoints simulados
+
+| Método | Endpoint | Descrição |
+|---|---|---|
+| GET | `/schools` | Lista todas as escolas (com `classCount` e `shifts` derivados) |
+| POST | `/schools` | Cria uma escola |
+| PUT | `/schools/:id` | Atualiza uma escola |
+| DELETE | `/schools/:id` | Remove uma escola |
+| GET | `/classes?schoolId=:id` | Lista turmas de uma escola |
+| POST | `/classes` | Cria uma turma |
+| PUT | `/classes/:id` | Atualiza uma turma |
+| DELETE | `/classes/:id` | Remove uma turma |
+
+O servidor já vem com **3 escolas** e **7 turmas** pré-cadastradas como seed data.
+
+---
+
+## Testes
 
 ```bash
 npm test
 ```
 
+Cobertura de testes com Jest + Testing Library React Native:
+
+- Componentes: `SchoolCard`, `SchoolForm`, `SchoolList`, `ClassCard`, `ClassForm`, `ClassList`
+- Componentes compartilhados: `EmptyState`, `ConfirmDialog`
+- Hooks: `useSchools`, `useSchoolActions`, `useClasses`, `useClassActions`
+
 ---
 
-## Architecture
+## Arquitetura
 
-Feature-based folder structure. Screens are thin — all logic lives in hooks.
+Estrutura feature-based. As telas são finas — toda a lógica vive em hooks.
 
 ```
 app/
-  _layout.tsx          ← Stack navigator root + providers
-  index.tsx            ← redirect to /schools
+  _layout.tsx          ← Stack navigator raiz + providers
+  index.tsx            ← redireciona para /schools
   schools/
-    index.tsx          ← school list screen
-    [id].tsx           ← school detail + class list screen
+    index.tsx          ← tela de lista de escolas
+    [id].tsx           ← tela de detalhe da escola + turmas
 
 src/
-  components/          ← shared: EmptyState, ConfirmDialog
+  components/          ← compartilhados: EmptyState, ConfirmDialog
   features/
     schools/
       components/      ← SchoolCard, SchoolForm, SchoolList, ShiftBadge
-      hooks/           ← useSchools (fetch), useSchoolActions (mutations + toast)
+      hooks/           ← useSchools (fetch), useSchoolActions (mutações + toast)
       context/         ← SchoolsContext
       types.ts
     classes/
@@ -109,38 +137,20 @@ src/
       context/         ← ClassesContext
       types.ts
   mocks/
-    server.ts          ← MirageJS routes + seed data
+    server.ts          ← MirageJS: rotas + seed data
   services/
-    api.ts             ← fetch wrapper (get / post / put / delete)
+    api.ts             ← wrapper de fetch (get / post / put / delete)
   test-utils/
     index.tsx          ← customRender + AllProviders
 ```
 
-### Key patterns
+### Padrões aplicados
 
-| Pattern | Where |
+| Padrão | Onde |
 |---|---|
-| Context stores raw data, no API calls | `*Context.tsx` |
-| Hooks own fetching and state sync | `useSchools`, `useClasses` |
-| Hooks own mutations + toast | `useSchoolActions`, `useClassActions` |
-| Screens own local UI state only | `app/schools/*.tsx` |
-| Delete always goes through `ConfirmDialog` | `ConfirmDialog.tsx` |
-
----
-
-## Mock API
-
-MirageJS is initialized in `app/_layout.tsx` only when `__DEV__ === true`.
-
-| Method | Endpoint | Description |
-|---|---|---|
-| GET | `/schools` | List all schools (with classCount + shifts) |
-| POST | `/schools` | Create school |
-| PUT | `/schools/:id` | Update school |
-| DELETE | `/schools/:id` | Delete school |
-| GET | `/classes?schoolId=:id` | List classes for a school |
-| POST | `/classes` | Create class |
-| PUT | `/classes/:id` | Update class |
-| DELETE | `/classes/:id` | Delete class |
-
-Seeded with 3 schools and 7 classes on first load.
+| Context stores dados brutos, sem chamadas de API | `*Context.tsx` |
+| Hooks controlam fetch e sincronização de estado | `useSchools`, `useClasses` |
+| Hooks controlam mutações + toast | `useSchoolActions`, `useClassActions` |
+| Telas controlam apenas estado local de UI | `app/schools/*.tsx` |
+| Delete sempre passa por `ConfirmDialog` | `ConfirmDialog.tsx` |
+| Adapter de fetch centralizado | `src/services/api.ts` |
