@@ -6,9 +6,9 @@ Aplicativo móvel multiplataforma (Android/iOS) para centralizar o cadastro de e
 
 ## Screenshots
 
-| Lista de Escolas | Formulário de Escola | Formulário de Turma | Estado Vazio | Confirmação de Exclusão |
-|:---:|:---:|:---:|:---:|:---:|
-| ![Lista de Escolas](assets/screenshots/schools-list.png) | ![Formulário de Escola](assets/screenshots/school-form.png) | ![Formulário de Turma](assets/screenshots/class-form.png) | ![Estado Vazio](assets/screenshots/empty-state-classes.png) | ![Exclusão](assets/screenshots/delete-school.png) |
+| Lista de Escolas | Lista de Turmas | Formulário de Escola | Formulário de Turma | Estado Vazio | Confirmação de Exclusão |
+|:---:|:---:|:---:|:---:|:---:|:---:|
+| ![Lista de Escolas](assets/screenshots/schools-list.png) | ![Lista de Turmas](assets/screenshots/classes-list.png) | ![Formulário de Escola](assets/screenshots/school-form.png) | ![Formulário de Turma](assets/screenshots/class-form.png) | ![Estado Vazio](assets/screenshots/empty-state-classes.png) | ![Exclusão](assets/screenshots/delete-school.png) |
 
 ---
 
