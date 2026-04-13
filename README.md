@@ -17,11 +17,9 @@ School Manager centralizes school and class registration, replacing manual sprea
 
 ## Screenshots
 
-| Schools List | School Detail | Form (BottomSheet) | Empty State |
-|:---:|:---:|:---:|:---:|
-| ![Schools List](assets/screenshots/schools-list.png) | ![School Detail](assets/screenshots/school-detail.png) | ![Form](assets/screenshots/school-form.png) | ![Empty State](assets/screenshots/empty-state.png) |
-
-> To add screenshots: run the app (`npx expo start`), capture the screens and place the `.png` files in `assets/screenshots/`.
+| Schools List | School Form | Class Form | Empty State | Delete Confirmation |
+|:---:|:---:|:---:|:---:|:---:|
+| ![Schools List](assets/screenshots/schools-list.png) | ![School Form](assets/screenshots/school-form.png) | ![Class Form](assets/screenshots/class-form.png) | ![Empty State](assets/screenshots/empty-state-classes.png) | ![Delete](assets/screenshots/delete-school.png) |
 
 ---
 
